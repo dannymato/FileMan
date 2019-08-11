@@ -1,0 +1,7 @@
+#No Object files
+*.o
+#No vscode
+.vscode/
+#No output without the removeing .c
+fileman
+!*.c
