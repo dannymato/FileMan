@@ -1,13 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "LList.h"
 
-struct node {
-
-	char* f_name;
-
-	struct node* next_node;
-
-};
 
 
 struct node* create_list(char* fName){
@@ -23,19 +17,14 @@ struct node* add_item(char* fName, struct node* root){
 
 	if(root == NULL){
 
-		root->f_name = fName;
-		root->next_node = NULL;
-
-		return root;
+		return create_node(fName);
 
 	}
 
 	else if(root->next_node == NULL){
 
-		struct node* douglas;
-		douglas->f_name = fName;
-		douglas->next_node = NULL;
-		root->next_node = douglas;
+		
+		root->next_node = create_node(fName);
 
 		return root;		
 
@@ -48,5 +37,28 @@ struct node* add_item(char* fName, struct node* root){
 
 	}
 
+}
+
+struct node* create_node(char* fName){
+
+	struct node* new_node = (struct node*)malloc(sizeof(struct node));
+
+	new_node->f_name = fName;
+	new_node->next_node = NULL;
+	new_node->is_selected = 0;
+
+	return new_node;
 
 }
+
+void clear_list(struct node* root){
+
+	if (root->next_node){
+		clear_list(root->next_node);
+	}
+	else{
+		free(root);
+	}
+
+}
+

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ncurses.h>
+#include "LList.h"
 
 #define MAX_FILE 40
 
@@ -23,15 +24,25 @@ int main(){
 	}
 
 	int i = 0;
+	struct node* root;
+	
+	if((dp = readdir(dirp)) != NULL){
 
-	do{
+		root = create_node(dp->d_name);
+		
+	}
+	else {
+		perror("couldn't open dir");
+	}
+
+	while (dp != NULL){
 		if((dp = readdir(dirp)) != NULL){
-			strcpy(files[i++], dp->d_name);
+			root = add_item(dp->d_name, root);
 		}
 		else {
 			perror("couldn't open dir");
 		}
-	} while (dp != NULL);
+	} 
 
 	initscr();
 	raw();
@@ -52,10 +63,7 @@ int main(){
 
 	i = 0;
 
-	while(files[i] != NULL && i < MAX_FILE - 1){
-		wprintw(stdscr, "%s\n", files[i]);
-		i++;
-	}
+	show_files(root);
 
 	refresh();
 
@@ -63,9 +71,24 @@ int main(){
 
 	endwin();
 
+	clear_list(root);
+
 	closedir(dirp);
 
 	return 0;
 	
+
+}
+
+void show_files(struct node* root){
+
+	wprintw(stdscr,"%s\n", root->f_name);
+
+	if(root->next_node){
+		show_files(root->next_node);
+	}
+	else{
+		refresh();
+	}
 
 }
