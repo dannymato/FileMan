@@ -16,6 +16,10 @@ struct node* create_list(char*);
 struct node* add_item(char*, struct node*);
 struct node* create_node(char*);
 void clear_list(struct node*);
-struct node* sort(struct node*);
+struct node* sort(struct node**);
+
+int is_before(char*, char*);
+
+char* lower(char*);
 
 #endif

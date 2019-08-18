@@ -18,7 +18,7 @@ int main(){
 
 	char files[MAX_FILE][FILENAME_MAX];
 
-	if ((dirp = opendir(".")) == NULL){
+	if ((dirp = opendir("/")) == NULL){
 		perror("Couldn't open .");
 		return -1;
 	}
