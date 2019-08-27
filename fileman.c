@@ -18,7 +18,7 @@ int main(){
 
 	char files[MAX_FILE][FILENAME_MAX];
 
-	if ((dirp = opendir("/")) == NULL){
+	if ((dirp = opendir(".")) == NULL){
 		perror("Couldn't open .");
 		return -1;
 	}
@@ -48,6 +48,8 @@ int main(){
 	raw();
 	keypad(stdscr, TRUE);
 	noecho();
+
+	wborder(stdscr, 0,0,0,0,0,0,0,0);
 
 	int row,col;
 

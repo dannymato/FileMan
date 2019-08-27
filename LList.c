@@ -41,11 +41,8 @@ struct node* add_item(char* fName, struct node* root){
 		root->next_node->next_node = temp;
 
 		return root;
-		
+
 	}
-
-	
-
 
 	else{
 
@@ -79,23 +76,25 @@ void clear_list(struct node* root){
 
 }
 
-
+//Returns <0 if this is before that
 int is_before(char* this, char* that){
 
-	return strcmp(this, that);
+	return strcmp(lower(this), lower(that));
 
 }
 
 char* lower(char* elem){
 
-	char* temp = elem;
+	char* temp = malloc(sizeof(char) * strlen(elem));
+
+	strcpy(temp, elem);
 
 	int i = 0;
 
 	while(temp[i] != '\0'){
 
 		if(isalpha(temp[i])){
-			tolower(temp[i]);
+			temp[i] = (char) tolower(temp[i]);
 		}
 
 		i++;
